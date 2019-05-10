@@ -3,8 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/tbq001/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201705/</loc>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tbq201707/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201709/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201712/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201804/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201812/</loc>
+  </url>
+  
+  <url>
+    <loc>/tbq201906/</loc>
   </url>
   
   <url>
