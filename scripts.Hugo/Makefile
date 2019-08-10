@@ -6,6 +6,25 @@ all:
 
 include Makefile.env
 
+git :
+	git config --global pack.windowMemory           "32m"
+	git config --global pack.packSizeLimit          "33m"
+	git config --global pack.deltaCacheSize         "34m"
+	git config --global pack.threads                "1"
+	git config --global core.packedGitLimit         "35m"
+	git config --global core.packedGitWindowSize    "36m"
+	git config --global http.postbuffer             "5m"
+	git config --global core.fileMode               false
+	git repack -a -d --window-memory 10m --max-pack-size 50m
+
+gitX:
+	swapoff                /swapfile || echo
+	#dd if=/dev/zero     of=/swapfile bs=1024 count=1048576
+	dd if=/dev/zero     of=/swapfile bs=1024 count=4194304
+	chmod 600              /swapfile
+	mkswap                 /swapfile
+	swapon                 /swapfile
+
 up:
 	nice -n 19 git push -u origin master
 e:
@@ -44,7 +63,7 @@ regen:
 #	[ -d themes ] || echo "you should run : git clone https://marstool@github.com/marstool/themes.git"
 #	[ -d themes ] || git clone https://marstool@github.com/marstool/themes.git
 regenX:
-	[ -d themes ] || rsync -a ../themes/  themes/
+	[ -d themes ] || rsync -a ../../themes/  themes/
 	cd themes && git pull
 	[ -L public ] || ln -s ../public/
 	rm -fr public/*
@@ -71,14 +90,14 @@ server2X:
 	cd public/ && python -m SimpleHTTPServer 33221
 
 
-define help_text
+define help_textHU
 
 	rg -> regen   : regen all hugo
 	s  -> server  : run hugo   server to test local
 	s2 -> server2 : run python server to test local
 
 endef
-export help_text
+export help_textHU
 
 
 endif
@@ -130,18 +149,22 @@ server3:
 	[ -d public ] || (                pwd && python -m SimpleHTTPServer 33221 )
 	[ ! -d public ] || ( cd public && pwd && python -m SimpleHTTPServer 33221 )
 
-define help_text
+define help_textINDEX
 
 	tg --> treeGen -> gen the index.html by tree
 	s3 -> server3 : run python server to test local
 
 endef
-export help_text
+export help_textINDEX
 
 endif
 ############################################### UseTree  end
 ############################################### UseTree  end
 ############################################### UseTree  end
 
+
+help_text9=$(if $(help_textTV),$(help_textTV),$(if $(help_textHU),$(help_textHU),$(help_textINDEX)))
+export help_text9
+
 all:
-	@echo "$${help_text}"
+	@echo "$${help_text9}"
